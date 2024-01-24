@@ -3,6 +3,6 @@ server:
 spring:
   thymeleaf:
     cache: false
-    encoding: UTF-8 # ??? ?? ???
     prefix: classpath:/templates/
+    mode: HTML
     suffix: .html

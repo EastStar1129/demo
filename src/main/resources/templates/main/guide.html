@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+  <!--css,JS 추가영역-->
+</head>
+<div layout:fragment="content">
+  <script>
+    const place = {x: 126.962879545714, y: 37.5089706729965};
+  </script>
+  <p class="text-center text-muted">서울특별시 동작구 흑석동 서달로15길 8-12</p>
+  <p class="text-center text-muted">지하철 : 흑석역 9호선 3, 4번 출구</p>
+  <p class="text-center text-muted">버스 : 5524, 5536, 5517, 동작01</p>
+  <div th:replace="fragments/map :: church"></div>
+  <div th:replace="fragments/map :: churchRoadmap"></div>
+</div>
+</html>
