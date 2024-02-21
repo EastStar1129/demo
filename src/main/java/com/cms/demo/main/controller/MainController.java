@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -15,6 +14,16 @@ public class MainController {
     @GetMapping("/")
     public String index() {
         return "index";
+    }
+
+    @GetMapping("info")
+    public String info() {
+        return "main/info";
+    }
+
+    @GetMapping("order")
+    public String order() {
+        return "main/order";
     }
 
     @GetMapping("agreement")
@@ -150,5 +159,9 @@ public class MainController {
     @GetMapping("guide")
     public String guide() {
         return "main/guide";
+    }
+    @GetMapping("verse")
+    public String verses() {
+        return "main/verse";
     }
 }

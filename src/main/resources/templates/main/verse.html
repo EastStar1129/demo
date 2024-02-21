@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+  <!--css,JS 추가영역-->
+</head>
+<div layout:fragment="content">
+  <h3 class="containter-title">말씀</h3>
+  <div th:replace="fragments/verse :: verse"></div>
+</div>
+</html>
