@@ -6,3 +6,15 @@ spring:
     prefix: classpath:/templates/
     mode: HTML
     suffix: .html
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cms
+    username: postgres
+    password: 12341234
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.PostgreSQL10Dialect
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
