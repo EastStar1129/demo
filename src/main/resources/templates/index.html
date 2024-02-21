@@ -8,6 +8,21 @@
   <!--css,JS 추가영역-->
 </head>
 <div layout:fragment="content">
+  <style>
+    body {
+      margin: 0 !important;
+    }
+    .header-container {
+      margin: 0 !important;
+      height: 0 !important;
+    }
+
+    .header-container > div {
+      margin: 1rem;
+    }
+  </style>
   <div th:replace="fragments/slide :: main"></div>
+  <div th:replace="fragments/list :: order"></div>
+  <div th:replace="fragments/list :: guide"></div>
 </div>
 </html>

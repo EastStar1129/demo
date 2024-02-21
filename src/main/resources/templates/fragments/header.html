@@ -2,26 +2,69 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="header">
     <style>
-        .header-ico {
-            position: absolute;
+        a {
+            cursor: pointer;
+            text-decoration-line:none;
+            color: black;
+        }
+        body,button,input,select,table,textarea {
+            font-family: "Noto Sans","맑은 고딕","Malgun Gothic",Arial,Helvetica,sans-serif,Lucida,Grande,"Microsoft YaHei","Hiragino Sans GB",SimSun,Meiryo;
+            font-size: 13px
+        }
+        .header-container {
+            position: relative;
             z-index: 9999;
+            height: 70px;
+        }
+
+        .header-container > div {
+            position:absolute;
+        }
+
+        .header-ico {
             width: 50px;
             height: 50px;
-            margin-top: 1em;
+        }
+
+        .circle-50 {
+            border-radius: 50px;
+        }
+
+        .left-component{
+            left: 0;
+        }
+
+        .center-component {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .right-component {
+            right: 0;
+        }
+
+        .containter-title {
+            color: #105587 !important;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #105587;
         }
     </style>
+    <div class="mt-3 header-container">
+        <div class="left-component">
+            <a href="/" >
+                <img src="/images/main/church.png" class="header-ico" style="float: left">
+                <div>
+                    <strong>대한예수교장로회</strong>
+                    <strong>영석교회</strong>
+                </div>
+            </a>
+        </div>
 
-    <div onclick="location.href='/';" style="cursor: pointer">
-        <img src="/images/main/church.png" class="header-ico" style="margin-left: 1em;">
-        <address class="header-ico" style="margin-left: calc(1em + 60px); width: auto;">
-            <h6 style="margin:0;">대한예수교장로회</h6>
-            <h3>영석교회</h3>
-        </address>
+        <div class="center-component">
+            <span id="headerTitle"></span>
+        </div>
+
+        <div th:include="fragments/menu :: overlay" class="right-component"></div>
     </div>
-    <button type="button" class="header-ico btn btn-light" style="right: 0; margin-right: 1em; border-radius:50px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-menu-up" viewBox="0 0 16 16">
-            <path d="M7.646 15.854a.5.5 0 0 0 .708 0L10.207 14H14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3.793zM1 9V6h14v3zm14 1v2a1 1 0 0 1-1 1h-3.793a1 1 0 0 0-.707.293l-1.5 1.5-1.5-1.5A1 1 0 0 0 5.793 13H2a1 1 0 0 1-1-1v-2zm0-5H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zM2 11.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 0-1h-8a.5.5 0 0 0-.5.5m0-4a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11a.5.5 0 0 0-.5.5m0-4a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 0-1h-6a.5.5 0 0 0-.5.5"/>
-        </svg>
-    </button>
 </div>
 </html>
