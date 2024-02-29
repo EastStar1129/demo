@@ -13,8 +13,33 @@
   </script>
   <h3 class="containter-title">오시는길</h3>
 
-  <div th:replace="fragments/list :: guide"></div>
-  <div th:replace="fragments/map :: church"></div>
-  <div th:replace="fragments/map :: churchRoadmap"></div>
+  <nav>
+    <div class="nav nav-pills nav-justified" id="btnGuildMap" role="tablist">
+      <button class="nav-link active" id="btnGuildMap1" data-bs-toggle="tab" data-bs-target="#guildMap1" type="button" role="tab" aria-controls="guildMap1" aria-selected="true">지도</button>
+      <button class="nav-link" id="btnGuildMap2" data-bs-toggle="tab" data-bs-target="#guildMap2" type="button" role="tab" aria-controls="guildMap2" aria-selected="false">로드맵</button>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="guildMap1" role="tabpanel" aria-labelledby="guildMap1">
+      <div th:replace="fragments/map :: church"></div>
+    </div>
+    <div class="tab-pane fade show active" id="guildMap2" role="tabpanel" aria-labelledby="guildMap2">
+      <div th:replace="fragments/map :: churchRoadmap"></div>
+    </div>
+  </div>
+  <div class="mt-3"></div>
+  <div th:replace="fragments/card :: guide"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      async function tabClose() {
+        await sleep(2000); // 2000밀리초(2초) 동안 대기
+        document.getElementById("guildMap2").className = "tab-pane fade";
+      }
+      tabClose();
+    });
+  </script>
 </div>
 </html>
