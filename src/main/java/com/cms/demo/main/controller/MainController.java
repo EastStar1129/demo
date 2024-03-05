@@ -161,7 +161,7 @@ public class MainController {
         return "main/guide";
     }
     @GetMapping("worship")
-    public String worships() {
+    public String worship() {
         return "main/worship";
     }
 }
