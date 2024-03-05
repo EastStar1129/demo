@@ -160,8 +160,8 @@ public class MainController {
     public String guide() {
         return "main/guide";
     }
-    @GetMapping("verse")
-    public String verses() {
-        return "main/verse";
+    @GetMapping("worship")
+    public String worships() {
+        return "main/worship";
     }
 }
