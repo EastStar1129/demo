@@ -1,6 +1,6 @@
-package com.cms.demo.verse.repository;
+package com.cms.demo.worship.repository;
 
-import com.cms.demo.verse.entity.Worship;
+import com.cms.demo.worship.entity.Worship;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
