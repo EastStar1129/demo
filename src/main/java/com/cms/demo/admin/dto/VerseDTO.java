@@ -1,4 +1,4 @@
-package com.cms.demo.verse.dto;
+package com.cms.demo.admin.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -6,8 +6,12 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class VerseDTO {
-    private String title;
+    private String bible;
     private Integer chapter;
     private Integer startVerse;
     private Integer endVerse;
+
+    public String makeTitle() {
+        return bible + " " + chapter + " : " + startVerse + "~" + endVerse;
+    }
 }
