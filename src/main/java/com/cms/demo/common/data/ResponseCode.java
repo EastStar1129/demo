@@ -7,7 +7,8 @@ import lombok.Getter;
 @Getter
 public enum ResponseCode {
     SUCCESS("0000"),
+    UPLOAD_FAIL("4000"),
     FAIL("9999");
 
-    private final String description;
+    private final String code;
 }

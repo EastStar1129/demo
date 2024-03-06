@@ -20,6 +20,9 @@ public class ResponseDto<T> {
     }
 
     public static ResponseDto ofSuccess() {
-        return new ResponseDto(ResponseCode.SUCCESS.getDescription(), ResponseCode.SUCCESS.getDescription());
+        return new ResponseDto(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.toString());
+    }
+    public static ResponseDto ofUploadFail() {
+        return new ResponseDto(ResponseCode.UPLOAD_FAIL.getCode(), ResponseCode.UPLOAD_FAIL.toString());
     }
 }
