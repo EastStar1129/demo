@@ -10,5 +10,13 @@
 <div layout:fragment="content">
   <h3 class="containter-title">예배말씀</h3>
   <div th:replace="fragments/worship :: worship"></div>
+  <div th:replace="fragments/worship :: list"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      fetchWorship();
+      fetchWorshipList(1);
+    });
+  </script>
 </div>
 </html>

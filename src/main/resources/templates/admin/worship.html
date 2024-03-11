@@ -60,14 +60,13 @@
       </div>
     </div>
     <div class="col-12">
-      <button type="button" class="btn btn-primary" onclick="submitForm()">등록</button>
+      <button type="button" class="btn btn-primary" onclick="submitForm(validateForm)">등록</button>
     </div>
   </form>
   <script>
     function submitForm() {
       // 폼 객체 가져오기
-      const form = document.getElementById("frmWorship");
-      const [flag, message] = validateForm(form);
+      const [flag, message] = validateForm();
       if (!flag) {
         alert(message);
         return;
@@ -90,9 +89,8 @@
         console.error("오류 발생:", error);
       });
     }
-
-    // 폼 유효성 검사 함수
-    function validateForm(form) {
+    const validateForm = () => {
+      const form = document.getElementById('frmWorship');
       // input, textarea 유효성 검사
       const title = form.title.value;
       const content = form.content.value;
