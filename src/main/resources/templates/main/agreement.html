@@ -8,27 +8,39 @@
   <!--css,JS 추가영역-->
 </head>
 <div layout:fragment="content">
-  <div class="accordion" id="accordionExample">
-    <tr th:each="list, listStatus : ${agreements}">
-      <div class="accordion-item">
-        <h2 class="accordion-header" th:id="${#strings.concat('heading',listStatus.index)}">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                  th:data-bs-target="${#strings.concat('#collapse', listStatus.index)}"
-                  aria-expanded="true" aria-controls="collapseOne"
-                  th:text="${list.hText}">
-            Accordion Item #0
-          </button>
-        </h2>
-        <div th:id="${#strings.concat('collapse',listStatus.index)}"
-             class="accordion-collapse collapse show"
-             th:aria-labelledby="${#strings.concat('heading',listStatus.index)}"
-             data-bs-parent="#accordionExample">
-          <div class="accordion-body" th:text="${list.divText}">
-            <strong> text </strong>
+  <section id="agreement" class="agreement">
+    <div class="container">
+
+      <div class="section-title">
+        <span>약관</span>
+        <h2>이용약관</h2>
+
+        <div class="row">
+          <div class="accordion" id="accordionExample">
+            <tr th:each="list, listStatus : ${agreements}">
+              <div class="accordion-item">
+                <h2 class="accordion-header" th:id="${#strings.concat('heading',listStatus.index)}">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                          th:data-bs-target="${#strings.concat('#collapse', listStatus.index)}"
+                          aria-expanded="true" aria-controls="collapseOne"
+                          th:text="${list.hText}">
+                    Accordion Item #0
+                  </button>
+                </h2>
+                <div th:id="${#strings.concat('collapse',listStatus.index)}"
+                     class="accordion-collapse collapse show"
+                     th:aria-labelledby="${#strings.concat('heading',listStatus.index)}"
+                     data-bs-parent="#accordionExample">
+                  <div class="accordion-body" th:text="${list.divText}">
+                    <strong> text </strong>
+                  </div>
+                </div>
+              </div>
+            </tr>
           </div>
         </div>
       </div>
-    </tr>
-  </div>
+    </div>
+  </section>
 </div>
 </html>
