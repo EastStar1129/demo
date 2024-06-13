@@ -156,6 +156,7 @@ public class MainController {
 
         return list;
     }
+
     @GetMapping("policy")
     public String policy() {
         return "main/policy";
@@ -167,5 +168,9 @@ public class MainController {
     @GetMapping("worship")
     public String worship() {
         return "main/worship";
+    }
+    @GetMapping("bulletin")
+    public String bulletin() {
+        return "main/bulletin";
     }
 }

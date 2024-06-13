@@ -1,10 +1,11 @@
 package com.cms.demo.common.dto;
 
 import com.cms.demo.common.data.ResponseCode;
-import com.cms.demo.worship.entity.Worship;
+import com.cms.demo.user.exception.UsernameAlreadyFoundException;
 import lombok.Getter;
 
-import java.util.List;
+import java.io.IOError;
+import java.io.IOException;
 import java.util.Objects;
 
 @Getter
@@ -26,11 +27,14 @@ public class ResponseDto<T> {
     public static ResponseDto ofSuccess() {
         return new ResponseDto<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.toString());
     }
-    public static ResponseDto ofUploadFail() {
+    public static ResponseDto<String> ofUploadFail(IOException e) {
         return new ResponseDto<>(ResponseCode.UPLOAD_FAIL.getCode(), ResponseCode.UPLOAD_FAIL.toString(), "업로드에 실패했습니다.");
     }
-    public static ResponseDto<String> ofLoginFail() {
-        return new ResponseDto<>(ResponseCode.LOGIN_FAIL.getCode(), ResponseCode.LOGIN_FAIL.toString(), "로그인에 실패했습니다.");
+    public static ResponseDto<String> ofLoginFail(Exception e) {
+        return new ResponseDto<>(ResponseCode.LOGIN_FAIL.getCode(), ResponseCode.LOGIN_FAIL.toString(), e.getMessage());
+    }
+    public static ResponseDto<String> ofSignupAlreadyUsernameFail(UsernameAlreadyFoundException e) {
+        return new ResponseDto<>(ResponseCode.SIGNUP_ALREADY_USERNAME_FAIL.getCode(), ResponseCode.SIGNUP_ALREADY_USERNAME_FAIL.toString(), e.getMessage());
     }
 
     public static <T> ResponseDto<T> ofSuccess(T object) {

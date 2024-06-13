@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="bulletin">
+  <section id="about" class="about">
+  </section>
+  <script>
+    const fetchBulletin = () => {
+      fetch('/bulletin/bulletin')
+              .then(response => response.json())
+              .then(data => {
+                const dBulletin = document.getElementById('about');
+                const bulletin = data.data;
+                dBulletin.innerHTML = `
+                        <div class="section-title">
+                            <span>주보</span>
+                            <h2>이번주 주보</h2>
+                            <h2>${bulletin.date}</h2>
+                            <div class="row">
+                              <img width="auto;" height="400px" src="${bulletin.image1Path}">
+                            <div class="row">
+                            </div>
+                              <img width="auto;" height="400px" src="${bulletin.image2Path}">
+                            </div>
+                        </div>
+
+                    `;
+              })
+              .catch(error => {
+                console.error('Error fetching data:', error);
+              });
+    }
+  </script>
+</div>
+<div th:fragment="list">
+  <div class="table-responsive small">
+    <table class="table table-striped table-sm">
+      <thead>
+      <tr>
+        <th scope="col">일련번호</th>
+        <th scope="col">날짜</th>
+      </tr>
+      </thead>
+      <tbody id="bodyBulletin">
+      </tbody>
+    </table>
+  </div>
+  <script th:inline="javascript">
+    const fetchBulletinList = (page) => {
+      fetch('/bulletin/bulletins?page=' + page)
+              .then(response => response.json())
+              .then(data => {
+                const tbody = document.getElementById('bodyBulletin');
+                tbody.innerHTML = ''; // 테이블 내용 비우기
+
+                data.data.forEach((bulletin) => {
+                  const row = document.createElement('tr');
+                  row.innerHTML = `
+                    <td>${bulletin.id}</td>
+                    <td>${bulletin.date}</td>
+                `;
+                  tbody.appendChild(row);
+                });
+              })
+              .catch(error => {
+                console.error('Error fetching data:', error);
+              });
+    }
+  </script>
+</div>
+</html>

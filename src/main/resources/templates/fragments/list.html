@@ -1,93 +1,150 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="info">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><strong>주안에서! 만나고 나누고 사귀자! (만 나 사)</strong></li>
-    <li class="list-group-item">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">1. 우리교회는? </li>
-        <li class="list-group-item">대한예수교 장로회(통합)에 소속된 교회로서 1969년 3월 2일에 창립되어 하나님과 이웃을 사랑하는 건강한 교회입니다.</li>
-      </ul></li>
-    <li class="list-group-item">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">2. 사명선언문 </li>
-        <li class="list-group-item">성령 충만으로 그리스도의 제자가 되어 하나님의 선교를 감당하는 사랑의 공동체</li>
-      </ul>
-    </li>
-    <li class="list-group-item">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">3. 교회의 5대 사역(핵심가치)</li>
-        <li class="list-group-item">예배</li>
-        <li class="list-group-item">교제</li>
-        <li class="list-group-item">선교</li>
-        <li class="list-group-item">사역</li>
-        <li class="list-group-item">성장</li>
-      </ul>
-    </li>
-    <li class="list-group-item">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">4. 5대 비전</li>
-        <li class="list-group-item">1.성령의 임재를 경험하는 예배</li>
-        <li class="list-group-item">2. 공동체의 덕을 세우는 교제</li>
-        <li class="list-group-item">3. 영적인 성숙과 양적인 성장</li>
-        <li class="list-group-item">4. 교회와 사회에서의 사역</li>
-        <li class="list-group-item">5. 지역과 세계를 품는 하나님의 선교</li>
-      </ul>
-    </li>
-  </ul>
+  <!-- ======= My Services Section ======= -->
+  <section id="services" class="services">
+    <div class="container">
+
+      <div class="section-title">
+        <span>소개</span>
+        <h2>교회소개</h2>
+        <p>2024년 비전 (만나사)</p>
+        <p>주안에서! 만나고! 나누고! 사귀자!</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+            <h4 class="title"><a href="">우리교회는?</a></h4>
+            <p class="description">대한예수교 장로회(통합)에 소속된 교회로서 1969년 3월 2일에 창립되어 하나님과 이웃을 사랑하는 건강한 교회입니다.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bx-file"></i></div>
+            <h4 class="title"><a href="">사명선언문</a></h4>
+            <p class="description">성령 충만으로 그리스도의 제자가 되어 하나님의 선교를 감당하는 사랑의 공동체</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bx-tachometer"></i></div>
+            <h4 class="title"><a href="">교회의 5대 사역(핵심가치)</a></h4>
+            <p class="description">예배</p>
+            <p class="description">교제</p>
+            <p class="description">선교</p>
+            <p class="description">사역</p>
+            <p class="description">성장</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bx-world"></i></div>
+            <h4 class="title"><a href="">5대 비전</a></h4>
+            <p class="description">1.성령의 임재를 경험하는 예배</p>
+            <p class="description">2. 공동체의 덕을 세우는 교제</p>
+            <p class="description">3. 영적인 성숙과 양적인 성장</p>
+            <p class="description">4. 교회와 사회에서의 사역</p>
+            <p class="description">5. 지역과 세계를 품는 하나님의 선교</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
 </div>
+
 <div th:fragment="order">
-  <table class="table">
-    <caption>온라인 헌금계좌 : 국민은행 025101-04-249171 (대한예수교장로회영석교회)</caption>
-    <tbody>
-    <tr>
-      <th scope="row" rowspan="6">주일예배</th>
-      <td>1부</td>
-      <td>오전 9시</td>
-      <td>2층 대예배실</td>
-    </tr>
-    <tr>
-      <td>2부</td>
-      <td>오전 11시</td>
-      <td>2층 대예배실</td>
-    </tr>
-    <tr>
-      <td>유치부, 아동부, 청소년부 통합예배</td>
-      <td>오전 11시</td>
-      <td>1층 중예배실</td>
-    </tr>
-    <tr>
-      <td>예배 후 부서별 분반 공부</td>
-      <td>오전 11시 40분</td>
-      <td>각 장소</td>
-    </tr>
-    <tr>
-      <td>찬양예배</td>
-      <td>오후 1시 30분</td>
-      <td>2층 대예배실</td>
-    </tr>
-    <tr>
-      <td>청년부 모임</td>
-      <td>오후 1시 30분</td>
-      <td>청년부실</td>
-    </tr>
-    <tr>
-      <th scope="row" rowspan="3">주중예배</th>
-      <td>새벽기도회</td>
-      <td>오전 5시 30분</td>
-      <td>2층 대예배실</td>
-    </tr>
-    <tr>
-      <td>수요예배</td>
-      <td>오후 7시 30분</td>
-      <td>2층 대예배실</td>
-    </tr>
-    <tr>
-      <td>금요예배</td>
-      <td>오후 8시 30분</td>
-      <td>2층 대예배실</td>
-    </tr>
-    </tbody>
-  </table>
+  <section id="resume" class="resume">
+    <div class="container">
+      <div class="section-title">
+        <span>예배시간</span>
+        <h2>예배시간</h2>
+        <p>온라인 헌금계좌 : 국민은행 025101-04-249171 (대한예수교장로회영석교회)</p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <h3 class="resume-title">주일예배</h3>
+          <div class="resume-item pb-0">
+            <h4>본예배 1부</h4>
+            <h5>주일 09:00</h5>
+            <p><em>장소: 대예배실</em></p>
+            <p>
+            </p>
+          </div>
+          <div class="resume-item pb-0">
+            <h4>본예배 2부</h4>
+            <h5>주일 11:00</h5>
+            <p><em>장소: 대예배실</em></p>
+            <p>
+            </p>
+          </div>
+          <div class="resume-item pb-0">
+            <h4>찬양예배</h4>
+            <h5>주일 13:30</h5>
+            <p><em>장소: 대예배실</em></p>
+            <p>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <h3 class="resume-title">교육부예배</h3>
+          <div class="resume-item pb-0">
+            <h4>아동부, 청소년부</h4>
+            <h5>주일 11:30</h5>
+            <p><em>장소: 소예배실</em></p>
+            <p>
+            </p>
+          </div>
+          <div class="resume-item pb-0">
+            <h4>유치부</h4>
+            <h5>주일 13:30</h5>
+            <p><em>장소: 소예배실/유치부실</em></p>
+            <p>
+            </p>
+          </div>
+          <div class="resume-item pb-0">
+            <h4>청년부</h4>
+            <h5>주일 13:30</h5>
+            <p><em>장소: 청년부실</em></p>
+            <p>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <h3 class="resume-title">주중예배</h3>
+            <div class="resume-item pb-0">
+              <h4>새벽예배</h4>
+              <h5>월~금 05:30</h5>
+              <p><em>장소: 대예배실</em></p>
+              <p>
+              </p>
+            </div>
+            <div class="resume-item pb-0">
+              <h4>수요예배</h4>
+              <h5>수요일 19:30</h5>
+              <p><em>장소: 대예배실</em></p>
+              <p>
+              </p>
+            </div>
+            <div class="resume-item pb-0">
+              <h4>금요예배</h4>
+              <h5>금요일 20:30</h5>
+              <p><em>장소: 대예배실</em></p>
+              <p>
+              </p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 </html>

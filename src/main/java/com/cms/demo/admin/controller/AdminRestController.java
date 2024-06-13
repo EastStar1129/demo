@@ -1,8 +1,10 @@
 package com.cms.demo.admin.controller;
 
+import com.cms.demo.admin.dto.UserRequestDTO;
 import com.cms.demo.admin.dto.WorshipRequestDTO;
 import com.cms.demo.common.dto.ResponseDto;
-import com.cms.demo.common.exception.FailedFileUploadException;
+import com.cms.demo.user.exception.UsernameAlreadyFoundException;
+import com.cms.demo.user.service.UserService;
 import com.cms.demo.worship.service.WorshipService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import java.io.IOException;
 @AllArgsConstructor
 public class AdminRestController {
     private final WorshipService worshipService;
+    private final UserService userService;
 
     @PostMapping("/worship")
     public ResponseEntity<ResponseDto> saveWorship(
@@ -25,8 +28,20 @@ public class AdminRestController {
         return ResponseEntity.ok(ResponseDto.ofSuccess());
     }
 
-    @ExceptionHandler(value = IOException.class)
-    public ResponseEntity exceptionError(Exception e) {
-        return ResponseEntity.ok(ResponseDto.ofUploadFail());
+    @PostMapping("/user")
+    public ResponseEntity<ResponseDto> saveUser(@RequestBody UserRequestDTO userRequestDTO) {
+        userService.save(userRequestDTO);
+        return ResponseEntity.ok(ResponseDto.ofSuccess());
     }
+
+    @ExceptionHandler(value = IOException.class)
+    public ResponseEntity exceptionError(IOException e) {
+        return ResponseEntity.ok(ResponseDto.ofUploadFail(e));
+    }
+    @ExceptionHandler(value = UsernameAlreadyFoundException.class)
+    public ResponseEntity<ResponseDto<String>> usernameAlreadyFoundError(UsernameAlreadyFoundException e) {
+        return ResponseEntity.ok(ResponseDto.ofSignupAlreadyUsernameFail(e));
+    }
+
+
 }

@@ -7,12 +7,11 @@ import lombok.Getter;
 
 @Entity
 @Getter
-@Table(name = "tbl_verse")
+@Table(name = "tbl_worship")
 public class Worship extends DateEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tbl_worship_seq")
-    @SequenceGenerator(name = "tbl_worship_seq", sequenceName = "tbl_worship_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
     @Column
     private String part;
@@ -22,7 +21,7 @@ public class Worship extends DateEntity {
     private String verses;
     @Column
     private String title;
-    @Column
+    @Column(length = 4000)
     private String content;
     @Column
     private String audioPath;

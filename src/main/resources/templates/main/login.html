@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+  <!--css,JS 추가영역-->
+</head>
+<div layout:fragment="content">
+  <form class="row g-3" id="frmLogin" action="/doLogin" method="post">
+    <label for="id"></label>
+    <input type="text" name="id" id="id">
+    <label for="password"></label>
+    <input type="text" name="password" id="password">
+    <button type="button" onclick="fetchLogin();">login</button>
+  </form>
+
+  <script>
+    if (window.location.href.includes("failed=true")) {
+      alert("회원정보를 다시 확인해주세요.");
+    }
+
+    const fetchLogin = () => {
+      // 폼 객체 가져오기
+      const [flag, message] = validateForm();
+      if (!flag) {
+        alert(message);
+        return;
+      }
+
+      document.getElementById('frmLogin').submit();
+    }
+    const validateForm = () => {
+      const form = document.getElementById('frmLogin');
+      const id = form.id.value;
+      const password = form.password.value;
+
+      if (id === '' || password === '') {
+        return [false, "모든 내용을 작성해주세요."];
+      }
+      // FormData 객체 생성
+      let formData = new FormData();
+      formData.append("id", id);
+      formData.append("password", password);
+
+      return [true, formData];
+    }
+  </script>
+</div>
+</html>

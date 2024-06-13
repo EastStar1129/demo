@@ -1,26 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="worship">
-    <div id="mainWorship"></div>
+    <section id="about" class="about">
+    </section>
     <script>
         const fetchWorship = () => {
             fetch('/worship/worship')
                 .then(response => response.json())
                 .then(data => {
-                    const dWorship = document.getElementById('mainWorship');
-                    dWorship.innerHTML = ''; // 테이블 내용 비우기
-
+                    const dWorship = document.getElementById('about');
                     const worship = data.data;
-                    const row = document.createElement('div');
-                    row.innerHTML = `
-                        <div>${worship.idx}</div>
-                        <div>${worship.date}</div>
-                        <div>${worship.part}</div>
-                        <div>${worship.title}</div>
-                        <div>${worship.verses}</div>
-                        <div>${worship.writer}</div>
+                    const content = worship.content.replaceAll(".", ".</li><li>")
+                    dWorship.innerHTML = `
+                        <div class="section-title">
+                            <span>말씀</span>
+                            <h2>이번주 말씀</h2>
+                            <div class="row content">
+                                <div class="content col-lg-2">&nbsp;</div>
+                                <div class="content col-lg-3">
+                                    <ul>
+                                        <li><strong>예배시간</strong></li>
+                                        <li>${worship.date} ${worship.part}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-3">
+                                    <ul>
+                                        <li><strong>말씀구절</strong></li>
+                                        <li>${worship.verses}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-3">
+                                    <ul>
+                                        <li><strong>말씀제목</strong></li>
+                                        <li>${worship.title}</li>
+                                    </ul>
+                                </div>
+                                <div class="content col-lg-1">&nbsp;</div>
+                            </div>
+                            <div class="row content">
+                                <div class="content col-lg-2">&nbsp;</div>
+                                <div class="content col-lg-9 text-start">
+                                    <ul><li><strong>오디오</strong></li>
+                                    <li>
+                                    <audio controls class="w-100">
+                                        <source src="${worship.audioPath}" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio></li></ul>
+                                </div>
+                                <div class="content col-lg-1">&nbsp;</div>
+                            </div>
+                            <div class="row content">
+                                <div class="content col-lg-2">&nbsp;</div>
+                                <div class="content col-lg-9 text-start">
+                                    <ul><li><strong>말씀요약</strong></li><li>${content}</li></ul>
+                                </div>
+                                <div class="content col-lg-1">&nbsp;</div>
+                            </div>
+                        </div>
+
                     `;
-                    dWorship.appendChild(row);
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
@@ -38,7 +76,6 @@
                 <th scope="col">예배시간</th>
                 <th scope="col">말씀주제</th>
                 <th scope="col">성경본문</th>
-                <th scope="col">작성자</th>
             </tr>
             </thead>
             <tbody id="bodyWorship">
@@ -61,7 +98,6 @@
                     <td>${worship.part}</td>
                     <td>${worship.title}</td>
                     <td>${worship.verses}</td>
-                    <td>${worship.writer}</td>
                 `;
                         tbody.appendChild(row);
                     });

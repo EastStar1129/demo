@@ -17,6 +17,12 @@ public class AdminWebController {
     public String worship() {
         return path("worship");
     }
+
+    @GetMapping("/user")
+    public String user() {
+        return path("user");
+    }
+
     @GetMapping("/bulletin")
     public String bulletin() {
         return path("bulletin");

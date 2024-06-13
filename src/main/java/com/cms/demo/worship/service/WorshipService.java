@@ -6,6 +6,7 @@ import com.cms.demo.common.exception.FailedFileUploadException;
 import com.cms.demo.worship.dto.WorshipResponseDTO;
 import com.cms.demo.worship.entity.Worship;
 import com.cms.demo.worship.repository.WorshipRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,10 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class WorshipService {
 
     private final WorshipRepository worshipRepository;
-
-    public WorshipService(WorshipRepository worshipRepository) {
-        this.worshipRepository = worshipRepository;
-    }
 
     public WorshipResponseDTO worship() {
         return WorshipResponseDTO.of(worshipRepository.findFirstByOrderByIdxDesc().orElse(null));

@@ -5,10 +5,17 @@
         layout:decorate="~{layout/layout}"
 >
 <head>
-  <!--css,JS 추가영역-->
+    <!--css,JS 추가영역-->
 </head>
 <div layout:fragment="content">
-  <h3 class="containter-title">주보</h3>
-  <div></div>
+    <div th:replace="~{fragments/bulletin :: bulletin}"></div>
+    <div th:replace="~{fragments/bulletin :: list}"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchBulletin();
+            fetchBulletinList(1);
+        });
+    </script>
 </div>
 </html>

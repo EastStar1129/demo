@@ -21,6 +21,7 @@ public class WorshipResponseDTO {
     private String verses;
     private String title;
     private String content;
+    private String audioPath;
     private String writer;
 
     public static List<WorshipResponseDTO> of(List<Worship> list) {
@@ -36,6 +37,7 @@ public class WorshipResponseDTO {
                 .title(worship.getTitle())
                 .content(worship.getContent())
                 .writer(worship.getWriter())
+                .audioPath(worship.getAudioPath())
                 .build();
     }
 }
