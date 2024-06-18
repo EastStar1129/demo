@@ -1,0 +1,15 @@
+server:
+  port: 80
+spring:
+  profiles:
+    include:
+      - database
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    mode: HTML
+    suffix: .html
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 100MB

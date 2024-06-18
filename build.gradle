@@ -1,15 +1,18 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+}
+
 plugins {
 	id 'java'
+	id 'java-library'
 	id 'org.springframework.boot' version '3.2.2'
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
-group = 'com.cms'
-version = '0.0.1-SNAPSHOT'
-
-java {
-	sourceCompatibility = '21'
-}
+bootJar.enabled = false
+jar.enabled = false
 
 configurations {
 	compileOnly {
@@ -17,41 +20,79 @@ configurations {
 	}
 }
 
-repositories {
-	mavenCentral()
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'java-library'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	group = 'com.cms'
+	version = '0.0.1-SNAPSHOT'
+	sourceCompatibility = '21'
+
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		// lombok
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+
+		// meta-data
+		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+		// test
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
 }
 
-dependencies {
-	//database
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'org.postgresql:postgresql'
+project(':database') {
+	dependencies {
+		api 'org.springframework.boot:spring-boot-starter-data-jpa'
+		//	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+		runtimeOnly 'com.h2database:h2'
+		runtimeOnly 'org.postgresql:postgresql'
 
-	//lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+		//dev
+		developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	}
 
-	//web
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
-
-	//security
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-
-	//web
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-
-	//dev
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-	//meta-data
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-	//test
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	bootJar { enabled = false }
+	jar { enabled = false }
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+project(':admin') {
+	dependencies {
+		implementation project(':database')
+
+		//web
+		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+		implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+
+		//security
+		implementation 'org.springframework.boot:spring-boot-starter-security'
+	}
+}
+
+project(':client') {
+	dependencies {
+		implementation project(':database')
+
+		//web
+		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+		implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+	}
 }

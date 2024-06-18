@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<div layout:fragment="content">
+
+  <section id="services" class="services">
+    <div class="container">
+
+      <div class="section-title">
+        <span>주보등록</span>
+        <h2>주보등록</h2>
+        <form id="frmBulletin" action="/admin/bulletin" method="post" role="form" class="php-email-form" enctype="multipart/form-data">
+          <div class="row">
+            <div class="form-group mt-3 col-lg-3">
+              <label for="date">예배날짜</label>
+              <input type="date" class="form-control" name="date" id="date" required />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group mt-3">
+              <label for="image1">주보 이미지1</label>
+              <input type="file" class="form-control" name="image1" id="image1"  required />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group mt-3">
+              <label for="image2">주보 이미지2</label>
+              <input type="file" class="form-control" name="image2" id="image2"  required />
+            </div>
+          </div>
+          <div class="row text-start">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="check">
+              <label class="form-check-label" for="check">
+                등록확인
+              </label>
+            </div>
+            <div class="text-center"><button type="button" onclick="submitForm();">등록</button></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <script>
+    window.onload = function() {
+      // 현재 날짜를 yyyy-MM-dd 형식으로 가져오기
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+      const dd = String(today.getDate()).padStart(2, '0');
+
+      // input 태그에 현재 날짜 설정
+      document.getElementById('date').value = yyyy + '-' + mm + '-' + dd;
+    };
+
+    function submitForm() {
+      // 폼 객체 가져오기
+      const [flag, message] = validateForm();
+      if (!flag) {
+        alert(message);
+        return;
+      }
+
+      fetch('/admin/bulletin', {
+        method: 'POST',
+        body: message
+      })
+      .then(response => {
+        if (response.ok) {
+          alert(document.getElementById('date').value.trim() + " 주보가 등록되었습니다.");
+          // 전송이 성공했을 때 추가적인 처리
+        } else {
+          console.log("전송 실패");
+          // 전송이 실패했을 때 처리
+        }
+      })
+      .catch(error => {
+        console.error("오류 발생:", error);
+      });
+    }
+    const validateForm = () => {
+      const form = document.getElementById('frmBulletin');
+      // input, textarea 유효성 검사
+      const date = form.querySelector('#date').value.trim();
+      const check = form.querySelector('#check').checked;
+      const image1 = form.querySelector("#image1");
+      const image2 = form.querySelector("#image2");
+
+      if (date === '') {
+        return [false, "날짜를 선택 해주세요."];
+      }
+
+      if (!image1.value || !image2.value) {
+        return [false, "주보 파일을 선택해주세요."];
+      }
+
+      if (!String(image1.value).endsWith('.jpeg') || !String(image2.value).endsWith('.jpeg')) {
+        return [false, "이미지 파일은 jpeg 확장자여야 합니다."];
+      }
+
+      // 오디오 파일의 크기가 100MB 이하인지 확인합니다.
+      const audioFileSize = image1.files[0].size; // 파일 크기 (bytes)
+      const maxSize = 2 * 1024 * 1024; // 2MB를 bytes로 변환
+      if (audioFileSize > maxSize) {
+        return [false, "이미지 파일 크기는 2MB 이하여야 합니다."];
+      }
+
+      // 체크박스가 체크되었는지 확인합니다.
+      if (!check) {
+        return [false, "등록 확인 체크박스를 선택해주세요."];
+      }
+
+      let formData = new FormData();
+      formData.append("image1", image1.files[0]);
+      formData.append("image2", image2.files[0]);
+      const blob = new Blob([JSON.stringify(date)], {
+        type: 'application/json',
+      });
+      formData.append("date", blob);
+      return [true, formData];
+    }
+  </script>
+</div>
+</html>

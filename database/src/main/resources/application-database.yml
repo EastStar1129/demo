@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/cms
+#    username: youngseok
+#    password: zS6)SHYMgG
+#  jpa:
+#    hibernate:
+#      dialect: org.hibernate.dialect.PostgreSQL10Dialect
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    show-sql: true

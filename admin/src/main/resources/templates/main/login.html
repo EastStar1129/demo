@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+  <!--css,JS 추가영역-->
+</head>
+<div layout:fragment="content">
+
+  <section id="contact" class="contact">
+    <div class="container">
+
+      <div class="section-title">
+        <span>로그인</span>
+        <h2>관리자 로그인</h2>
+      </div>
+
+      <div class="row">
+        <form id="frmLogin" action="/admin/doLogin" method="post" role="form" class="php-email-form">
+          <div class="form-group mt-3">
+            <label for="id"></label>
+            <input type="text" class="form-control" name="id" id="id" placeholder="id" required />
+          </div>
+          <div class="form-group mt-3">
+            <label for="password"></label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="password" required />
+          </div>
+          <div class="text-center"><button type="submit" onclick="fetchLogin();">Send Message</button></div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    if (window.location.href.includes("failed=true")) {
+      alert("회원정보를 다시 확인해주세요.");
+    }
+
+    const fetchLogin = () => {
+      // 폼 객체 가져오기
+      const [flag, message] = validateForm();
+      if (!flag) {
+        alert(message);
+        return;
+      }
+
+      document.getElementById('frmLogin').submit();
+    }
+    const validateForm = () => {
+      const form = document.getElementById('frmLogin');
+      const id = form.id.value;
+      const password = form.password.value;
+
+      if (id === '' || password === '') {
+        return [false, "모든 내용을 작성해주세요."];
+      }
+      // FormData 객체 생성
+      let formData = new FormData();
+      formData.append("id", id);
+      formData.append("password", password);
+
+      return [true, formData];
+    }
+  </script>
+</div>
+</html>

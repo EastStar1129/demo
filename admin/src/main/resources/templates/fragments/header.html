@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="header">
+    <script>
+        const sleep = (ms) => {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    </script>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex justify-content-center align-items-center header-transparent">
+        <nav id="navbar" class="navbar">
+
+        </nav><!-- .navbar -->
+    </header><!-- End Header -->
+    <script>
+        document.getElementById('header').style.setProperty("background-color", "rgba(25, 28, 31, 0.8)", "important");
+        const navbar = document.getElementById('navbar');
+        navbar.innerHTML = `<ul>
+                <li><a class="nav-link scrollto" href="/admin/worship">말씀등록</a></li>
+                <li><a class="nav-link scrollto" href="/admin/bulletin">주보등록</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>`;
+    </script>
+</div>
+</html>

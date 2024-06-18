@@ -1,0 +1,10 @@
+server:
+  port: 8081
+spring:
+  profiles:
+    include:
+      - database
+  thymeleaf:
+    prefix: classpath:/templates/
+    mode: HTML
+    suffix: .html
