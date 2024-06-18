@@ -23,18 +23,18 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Cache Gradle packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build admin module
-        run: ./gradlew :admin:build
+      - name: Build all modules
+        run: ./gradlew build -x test
 
-      - name: Build client module
-        run: ./gradlew :client:build
+      - name: Test all modules
+        run: ./gradlew test
 
       - name: Prepare admin build context
         run: mkdir -p admin/build/libs && cp admin/build/libs/*.jar admin/
