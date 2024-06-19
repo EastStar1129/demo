@@ -83,6 +83,10 @@ project(':admin') {
 
 		//security
 		implementation 'org.springframework.boot:spring-boot-starter-security'
+
+		// test
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation project(':database')
 	}
 }
 
@@ -94,5 +98,9 @@ project(':client') {
 		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 		implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 		implementation 'org.springframework.boot:spring-boot-starter-web'
+
+		// test
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation project(':database')
 	}
 }

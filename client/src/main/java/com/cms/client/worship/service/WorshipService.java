@@ -2,32 +2,26 @@ package com.cms.client.worship.service;
 
 import com.cms.client.common.data.DemoData;
 import com.cms.client.worship.dto.WorshipResponseDTO;
-import com.cms.database.worship.entity.Worship;
-import com.cms.database.worship.repository.WorshipRepository;
+import com.cms.database.worship.repository.WorshipRepositoryImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class WorshipService {
 
-    private final WorshipRepository worshipRepository;
+    private final WorshipRepositoryImpl worshipRepositoryImpl;
 
     public WorshipResponseDTO worship() {
-        return WorshipResponseDTO.of(worshipRepository.findFirstByOrderByIdxDesc().orElse(null));
+        return WorshipResponseDTO.of(worshipRepositoryImpl.findFirstByOrderByIdxDesc().orElse(null));
     }
 
     public List<WorshipResponseDTO> worships(int page) {
         Pageable pageable = PageRequest.of(page - 1, DemoData.WORSHIP_PAGE_SIZE);
-        return WorshipResponseDTO.of(worshipRepository.findAll(pageable).getContent());
+        return WorshipResponseDTO.of(worshipRepositoryImpl.findAll(pageable).getContent());
     }
 }
