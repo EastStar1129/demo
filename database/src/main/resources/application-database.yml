@@ -1,4 +1,10 @@
 spring:
+  profiles:
+    active: local # 기본 프로파일을 local로 설정
+
+---
+spring:
+  profiles: local
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -6,19 +12,20 @@ spring:
     password: password
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
 
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/cms
-#    username: youngseok
-#    password: zS6)SHYMgG
-#  jpa:
-#    hibernate:
-#      dialect: org.hibernate.dialect.PostgreSQL10Dialect
-#      ddl-auto: update
-#    properties:
-#      hibernate:
-#        format_sql: true
-#    show-sql: true
+---
+spring:
+  profiles: production
+  datasource:
+    url: jdbc:mysql://localhost:3306/${DB_NAME}
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true

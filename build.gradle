@@ -2,6 +2,10 @@ buildscript {
 	repositories {
 		mavenCentral()
 	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:3.2.2"
+		classpath "io.spring.gradle:dependency-management-plugin:1.1.4"
+	}
 }
 
 plugins {
@@ -17,6 +21,12 @@ jar.enabled = false
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
+	}
+}
+
+allprojects {
+	repositories {
+		mavenCentral()
 	}
 }
 
@@ -36,16 +46,12 @@ subprojects {
 		}
 	}
 
-	repositories {
-		mavenCentral()
-	}
-
 	dependencies {
 		// lombok
 		compileOnly 'org.projectlombok:lombok'
 		annotationProcessor 'org.projectlombok:lombok'
 
-		// meta-data
+		// meta-dats
 		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
 		// test
@@ -60,6 +66,7 @@ subprojects {
 project(':database') {
 	dependencies {
 		api 'org.springframework.boot:spring-boot-starter-data-jpa'
+		runtimeOnly 'com.mysql:mysql-connector-j'
 		//	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 		runtimeOnly 'com.h2database:h2'
 		runtimeOnly 'org.postgresql:postgresql'
