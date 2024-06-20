@@ -1,4 +1,4 @@
-name: Docker Build
+name: Build and Push Docker Images
 
 on:
   push:
@@ -8,18 +8,42 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.gradle
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build all modules
+        run: ./gradlew build -Dspring.profiles.active=production
+
+      - name: Test all modules
+        run: ./gradlew test -Dspring.profiles.active=production
+
+      - name: Prepare admin build context
+        run: mkdir -p admin/build/libs && cp admin/build/libs/*.jar admin/
+
+      - name: Prepare client build context
+        run: mkdir -p client/build/libs && cp client/build/libs/*.jar client/
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build admin image
         uses: docker/build-push-action@v4
@@ -42,3 +66,11 @@ jobs:
 
       - name: Save client image to file
         run: docker save -o client_image.tar client:latest
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: docker-images
+          path: |
+            admin_image.tar
+            client_image.tar
