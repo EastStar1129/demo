@@ -1,0 +1,44 @@
+name: Docker Build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build admin image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./admin
+          file: ./admin/Dockerfile
+          push: false
+          tags: admin:latest
+
+      - name: Build client image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./client
+          file: ./client/Dockerfile
+          push: false
+          tags: client:latest
+
+      - name: Save admin image to file
+        run: docker save -o admin_image.tar admin:latest
+
+      - name: Save client image to file
+        run: docker save -o client_image.tar client:latest

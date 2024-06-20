@@ -1,0 +1,44 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Copy images to Synology NAS
+        uses: appleboy/scp-action@v0.1.5
+        with:
+          host: ${{ secrets.SYNOLOGY_HOST }}
+          username: ${{ secrets.SYNOLOGY_USERNAME }}
+          password: ${{ secrets.SYNOLOGY_PASSWORD }}
+          source: "*.tar"
+          target: "/volume1/docker/my_project/"
+
+      - name: Copy .env file to Synology NAS
+        uses: appleboy/scp-action@v0.1.5
+        with:
+          host: ${{ secrets.SYNOLOGY_HOST }}
+          username: ${{ secrets.SYNOLOGY_USERNAME }}
+          password: ${{ secrets.SYNOLOGY_PASSWORD }}
+          source: ".env"
+          target: "/volume1/docker/my_project/.env"
+
+      - name: Deploy containers on Synology NAS
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.SYNOLOGY_HOST }}
+          username: ${{ secrets.SYNOLOGY_USERNAME }}
+          password: ${{ secrets.SYNOLOGY_PASSWORD }}
+          script: |
+            docker load -i /volume1/docker/my_project/admin_image.tar
+            docker load -i /volume1/docker/my_project/client_image.tar
+            cd /volume1/docker/my_project
+            docker-compose up -d

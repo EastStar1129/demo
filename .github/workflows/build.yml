@@ -1,4 +1,4 @@
-name: Build and Push Docker Images
+name: Build
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,7 +31,7 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Build all modules
-        run: ./gradlew build -x test -Dspring.profiles.active=production
+        run: ./gradlew build -Dspring.profiles.active=production
 
       - name: Test all modules
         run: ./gradlew test -Dspring.profiles.active=production
@@ -41,28 +41,3 @@ jobs:
 
       - name: Prepare client build context
         run: mkdir -p client/build/libs && cp client/build/libs/*.jar client/
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-      - name: Build and push admin image
-        uses: docker/build-push-action@v4
-        with:
-          context: ./admin
-          file: ./admin/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/admin:latest
-
-      - name: Build and push client image
-        uses: docker/build-push-action@v4
-        with:
-          context: ./client
-          file: ./client/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/client:latest
