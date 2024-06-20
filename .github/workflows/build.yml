@@ -41,3 +41,11 @@ jobs:
 
       - name: Prepare client build context
         run: mkdir -p client/build/libs && cp client/build/libs/*.jar client/
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: |
+            admin/build/libs/*.jar
+            client/build/libs/*.jar
