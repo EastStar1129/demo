@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   workflow_run:
-    workflows: ["Build and Push Docker Images"]
+    workflows: ["Docker Image Creation"]
     types:
       - completed
 
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download build artifacts
+      - name: Download docker images
         uses: actions/download-artifact@v3
         with:
           name: docker-images
@@ -49,4 +49,3 @@ jobs:
             docker load -i ${{ secrets.DEPLOY_PATH }}/client_image.tar
             cd ${{ secrets.DEPLOY_PATH }}
             docker-compose up -d
-ㅁ
