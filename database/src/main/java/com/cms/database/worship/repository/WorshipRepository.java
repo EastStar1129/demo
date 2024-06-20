@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface WorshipRepositoryImpl extends JpaRepository<Worship, Long> {
+public interface WorshipRepository extends JpaRepository<Worship, Long> {
     Optional<Worship> findFirstByOrderByIdxDesc();
 }

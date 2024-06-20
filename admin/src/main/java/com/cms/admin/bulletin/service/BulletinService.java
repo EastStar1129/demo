@@ -2,7 +2,7 @@ package com.cms.admin.bulletin.service;
 
 import com.cms.admin.common.exception.FailedFileUploadException;
 import com.cms.database.bulletin.entity.Bulletin;
-import com.cms.database.bulletin.repository.BulletinRepositoryImpl;
+import com.cms.database.bulletin.repository.BulletinRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 @Service
 @AllArgsConstructor
 public class BulletinService {
-    private final BulletinRepositoryImpl bulletinRepositoryImpl;
+    private final BulletinRepository bulletinRepository;
     private final String PREFIX_PATH = "/Users/youngseok/upload/bulletin";
 
     public void save(String username, String date, MultipartFile image1, MultipartFile image2) {
@@ -24,7 +24,7 @@ public class BulletinService {
         fileSave(PREFIX_PATH, fileName1, image1);
         fileSave(PREFIX_PATH, fileName2, image2);
         Bulletin bulletin = Bulletin.of(date, fileName1, fileName2, username);
-        bulletinRepositoryImpl.saveAndFlush(bulletin);
+        bulletinRepository.saveAndFlush(bulletin);
     }
 
     public void fileSave(String directory, String fileName, MultipartFile file) {

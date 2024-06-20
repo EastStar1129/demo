@@ -2,8 +2,7 @@ server:
   port: 8080
 spring:
   profiles:
-    include:
-      - database
+    active: local
   thymeleaf:
     cache: false
     prefix: classpath:/templates/
@@ -11,5 +10,40 @@ spring:
     suffix: .html
   servlet:
     multipart:
-      max-file-size: 30MB
+      max-file-size: 2MB
       max-request-size: 100MB
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  sql:
+    init:
+      data-locations: classpath:data.sql
+
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+  datasource:
+    url: jdbc:mysql://${DB_IP}:3306/${DB_NAME}
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true

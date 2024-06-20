@@ -1,7 +1,7 @@
 package com.cms.admin.security;
 
 import com.cms.database.user.entity.User;
-import com.cms.database.user.repository.UserRepositoryImpl;
+import com.cms.database.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,10 +13,10 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UserRepositoryImpl userRepositoryImpl;
+    private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepositoryImpl.findByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             return new CustomUserDetails(user.get());
         }

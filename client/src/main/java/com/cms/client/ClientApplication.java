@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = {"com.cms.database", "com.cms.client"})
-@EntityScan(basePackages = "com.cms")
 @EnableJpaAuditing
+@EntityScan(basePackages = "com.cms.database")
 @EnableJpaRepositories(basePackages = "com.cms.database")
 public class ClientApplication {
     public static void main(String[] args) {

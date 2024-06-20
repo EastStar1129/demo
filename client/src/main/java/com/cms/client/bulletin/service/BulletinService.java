@@ -1,7 +1,7 @@
 package com.cms.client.bulletin.service;
 
 import com.cms.client.bulletin.dto.BulletinResponseDTO;
-import com.cms.database.bulletin.repository.BulletinRepositoryImpl;
+import com.cms.database.bulletin.repository.BulletinRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,14 +13,14 @@ import java.util.List;
 @AllArgsConstructor
 public class BulletinService {
     public static final int BULLETIN_PAGE_SIZE = 10;
-    private final BulletinRepositoryImpl bulletinRepositoryImpl;
+    private final BulletinRepository bulletinRepository;
 
     public BulletinResponseDTO bulletin() {
-        return BulletinResponseDTO.of(bulletinRepositoryImpl.findFirstByOrderByIdxDesc().orElse(null));
+        return BulletinResponseDTO.of(bulletinRepository.findFirstByOrderByIdxDesc().orElse(null));
     }
 
     public List<BulletinResponseDTO> bulletins(int page) {
         Pageable pageable = PageRequest.of(page - 1, BULLETIN_PAGE_SIZE);
-        return BulletinResponseDTO.of(bulletinRepositoryImpl.findAll(pageable).getContent());
+        return BulletinResponseDTO.of(bulletinRepository.findAll(pageable).getContent());
     }
 }
