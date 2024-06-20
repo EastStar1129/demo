@@ -43,10 +43,10 @@ jobs:
         run: mkdir -p client/build/libs && cp client/build/libs/*.jar client/
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3 # Update to v3
 
       - name: Build admin image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5 # Update to v5
         with:
           context: ./admin
           file: ./admin/Dockerfile
@@ -54,7 +54,7 @@ jobs:
           tags: admin:latest
 
       - name: Build client image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5 # Update to v5
         with:
           context: ./client
           file: ./client/Dockerfile
@@ -68,7 +68,7 @@ jobs:
         run: docker save -o client_image.tar client:latest
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: docker-images
           path: |
