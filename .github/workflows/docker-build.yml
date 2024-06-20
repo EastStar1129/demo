@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifacts
           path: .
@@ -49,10 +49,9 @@ jobs:
         run: docker save -o client_image.tar client:latest
 
       - name: Upload docker images
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docker-images
           path: |
             admin_image.tar
             client_image.tar
-
