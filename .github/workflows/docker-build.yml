@@ -118,6 +118,7 @@ jobs:
           password: ${{ secrets.SYNOLOGY_PASSWORD }}
           source: "admin_image.tar,client_image.tar"
           target: "${{ secrets.DEPLOY_PATH }}"
+          timeout: 300s
 
       - name: Copy .env file to Synology NAS
         uses: appleboy/scp-action@v0.1.5
@@ -127,6 +128,7 @@ jobs:
           password: ${{ secrets.SYNOLOGY_PASSWORD }}
           source: ".env"
           target: "${{ secrets.DEPLOY_PATH }}"
+          timeout: 300s
 
       - name: Deploy containers on Synology NAS
         uses: appleboy/ssh-action@v0.1.5
@@ -139,3 +141,4 @@ jobs:
             docker load -i ${{ secrets.DEPLOY_PATH }}/client_image.tar
             cd ${{ secrets.DEPLOY_PATH }}
             docker-compose up -d
+          timeout: 300s
