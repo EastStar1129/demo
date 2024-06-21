@@ -104,9 +104,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Test network connectivity
-        run: ping -c 4 ${{ secrets.SYNOLOGY_HOST }}
-
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
