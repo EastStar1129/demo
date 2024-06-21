@@ -110,35 +110,26 @@ jobs:
           name: docker-images
           path: .
 
-      - name: Copy images to Synology NAS
-        uses: appleboy/scp-action@v0.1.5
-        with:
-          host: ${{ secrets.SYNOLOGY_HOST }}
-          username: ${{ secrets.SYNOLOGY_USERNAME }}
-          password: ${{ secrets.SYNOLOGY_PASSWORD }}
-          source: "admin_image.tar,client_image.tar"
-          target: "${{ secrets.DEPLOY_PATH }}"
-          timeout: 300s
+      - name: Copy images to Synology NAS using SCP
+        run: |
+          scp -P 22 admin_image.tar ${{ secrets.SYNOLOGY_USERNAME }}@${{ secrets.SYNOLOGY_HOST }}:${{ secrets.DEPLOY_PATH }}
+          scp -P 22 client_image.tar ${{ secrets.SYNOLOGY_USERNAME }}@${{ secrets.SYNOLOGY_HOST }}:${{ secrets.DEPLOY_PATH }}
 
-      - name: Copy .env file to Synology NAS
-        uses: appleboy/scp-action@v0.1.5
-        with:
-          host: ${{ secrets.SYNOLOGY_HOST }}
-          username: ${{ secrets.SYNOLOGY_USERNAME }}
-          password: ${{ secrets.SYNOLOGY_PASSWORD }}
-          source: ".env"
-          target: "${{ secrets.DEPLOY_PATH }}"
-          timeout: 300s
+      - name: Copy .env file to Synology NAS using SCP
+        run: |
+          scp -P 22 .env ${{ secrets.SYNOLOGY_USERNAME }}@${{ secrets.SYNOLOGY_HOST }}:${{ secrets.DEPLOY_PATH }}
 
-      - name: Deploy containers on Synology NAS
+      - name: Deploy containers on Synology NAS using SSH
         uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.SYNOLOGY_HOST }}
           username: ${{ secrets.SYNOLOGY_USERNAME }}
           password: ${{ secrets.SYNOLOGY_PASSWORD }}
+          port: 22
           script: |
             docker load -i ${{ secrets.DEPLOY_PATH }}/admin_image.tar
             docker load -i ${{ secrets.DEPLOY_PATH }}/client_image.tar
             cd ${{ secrets.DEPLOY_PATH }}
             docker-compose up -d
-          timeout: 300s
+          timeout: 600s
+          debug: true
