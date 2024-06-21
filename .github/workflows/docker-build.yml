@@ -14,6 +14,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Create directories for artifacts
+        run: |
+          mkdir -p admin/build/libs
+          mkdir -p client/build/libs
+
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:

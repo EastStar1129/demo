@@ -5,6 +5,7 @@ on:
     workflows: ["Docker Image Creation"]
     types:
       - completed
+    conclusion: success
 
 jobs:
   deploy:
