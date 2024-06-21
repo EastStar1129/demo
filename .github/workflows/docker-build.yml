@@ -104,6 +104,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Download docker images
         uses: actions/download-artifact@v4
         with:
@@ -124,7 +129,7 @@ jobs:
         with:
           host: ${{ secrets.SYNOLOGY_HOST }}
           username: ${{ secrets.SYNOLOGY_USERNAME }}
-          password: ${{ secrets.SYNOLOGY_PASSWORD }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
             docker load -i ${{ secrets.DEPLOY_PATH }}/admin_image.tar
