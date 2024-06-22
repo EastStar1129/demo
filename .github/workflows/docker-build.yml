@@ -50,6 +50,52 @@ jobs:
             admin/build/libs/*.jar
             client/build/libs/*.jar
 
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create directories for artifacts
+        run: |
+          mkdir -p admin/build/libs
+          mkdir -p client/build/libs
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: .
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build admin image
+        run: |
+          docker build -t admin:latest ./admin
+          docker images
+
+      - name: Build client image
+        run: |
+          docker build -t client:latest ./client
+          docker images
+
+      - name: Save admin image to file
+        run: docker save -o admin_image.tar admin:latest
+
+      - name: Save client image to file
+        run: docker save -o client_image.tar client:latest
+
+      - name: Upload docker images
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-images
+          path: |
+            admin_image.tar
+            client_image.tar
+
   deploy:
     runs-on: ubuntu-latest
     needs: docker-build
@@ -97,4 +143,3 @@ jobs:
             docker-compose up -d
           timeout: 300s
           debug: true
-
