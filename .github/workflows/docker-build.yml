@@ -139,10 +139,8 @@ jobs:
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S docker load -i ${{ secrets.DEPLOY_PATH }}/client_image.tar
             cd ${{ secrets.DEPLOY_PATH }}
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S /usr/local/bin/docker-compose up -d
-          env:
-            DB_IP: ${{ secrets.DB_IP }}
-            DB_NAME: ${{ secrets.DB_NAME }}
-            DB_USERNAME: ${{ secrets.DB_USERNAME }}
-            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          timeout: 300s
-          debug: true
+        env:
+          DB_IP: ${{ secrets.DB_IP }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
