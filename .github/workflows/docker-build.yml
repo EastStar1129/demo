@@ -124,7 +124,6 @@ jobs:
         run: |
           scp -o UserKnownHostsFile=~/.ssh/known_hosts -P 22 admin_image.tar ${{ secrets.SYNOLOGY_USERNAME }}@${{ secrets.SYNOLOGY_HOST }}:${{ secrets.DEPLOY_PATH }}
           scp -o UserKnownHostsFile=~/.ssh/known_hosts -P 22 client_image.tar ${{ secrets.SYNOLOGY_USERNAME }}@${{ secrets.SYNOLOGY_HOST }}:${{ secrets.DEPLOY_PATH }}
-          scp -o UserKnownHostsFile=~/.ssh/known_hosts -P 22 .env ${{ secrets.SYNOLOGY_USERNAME }}@${{ secrets.SYNOLOGY_HOST }}:${{ secrets.DEPLOY_PATH }}
           scp -o UserKnownHostsFile=~/.ssh/known_hosts -P 22 docker-compose.yml ${{ secrets.SYNOLOGY_USERNAME }}@${{ secrets.SYNOLOGY_HOST }}:${{ secrets.DEPLOY_PATH }}
 
       - name: Deploy containers on Synology NAS using SSH
@@ -140,5 +139,10 @@ jobs:
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S docker load -i ${{ secrets.DEPLOY_PATH }}/client_image.tar
             cd ${{ secrets.DEPLOY_PATH }}
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S /usr/local/bin/docker-compose up -d
+          env:
+            DB_IP: ${{ secrets.DB_IP }}
+            DB_NAME: ${{ secrets.DB_NAME }}
+            DB_USERNAME: ${{ secrets.DB_USERNAME }}
+            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           timeout: 300s
           debug: true
