@@ -1,17 +1,32 @@
-# docker-compose.yml
 version: '3.8'
 
 services:
   admin:
-    build:
-      context: ./admin
-      dockerfile: Dockerfile
+    image: admin:latest
+    container_name: admin
+    environment:
+      SPRING_PROFILES_ACTIVE: production
+      DB_IP: ${DB_IP}
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      USER: youngseok
     ports:
       - "8080:8080"
+    volumes:
+      - /home/youngseok/upload:/volume1/youngseok/upload
 
   client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+    image: client:latest
+    container_name: client
+    environment:
+      SPRING_PROFILES_ACTIVE: production
+      DB_IP: ${DB_IP}
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      USER: youngseok
     ports:
       - "8081:8081"
+    volumes:
+      - /home/youngseok/upload:/volume1/youngseok/upload
