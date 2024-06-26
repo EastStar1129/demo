@@ -136,9 +136,9 @@ jobs:
           port: 22
           script: |
             export PATH=$PATH:/usr/local/bin:/usr/bin
-            docker load -i ${{ secrets.DEPLOY_PATH }}/admin_image.tar
-            docker load -i ${{ secrets.DEPLOY_PATH }}/client_image.tar
+            sudo docker load -i ${{ secrets.DEPLOY_PATH }}/admin_image.tar
+            sudo docker load -i ${{ secrets.DEPLOY_PATH }}/client_image.tar
             cd ${{ secrets.DEPLOY_PATH }}
-            docker-compose up -d
+            sudo /usr/local/bin/docker-compose up -d
           timeout: 300s
           debug: true
