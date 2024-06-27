@@ -30,22 +30,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build admin module
-        run: ./gradlew :admin:build -Dspring.profiles.active=production
+      - name: Build all modules
+        run: ./gradlew build -Dspring.profiles.active=production
 
-      - name: Build client module
-        run: ./gradlew :client:build -Dspring.profiles.active=production
-
-      - name: Test admin module
-        run: ./gradlew :admin:test -Dspring.profiles.active=production
-
-      - name: Test client module
-        run: ./gradlew :client:test -Dspring.profiles.active=production
-
-      - name: Prepare admin build context
+      - name: Prepare build context for admin
         run: mkdir -p admin/build/libs && cp admin/build/libs/*.jar admin/
 
-      - name: Prepare client build context
+      - name: Prepare build context for client
         run: mkdir -p client/build/libs && cp client/build/libs/*.jar client/
 
       - name: Upload build artifacts
