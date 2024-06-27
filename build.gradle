@@ -74,9 +74,6 @@ project(':database') {
 		//dev
 		developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	}
-
-	bootJar { enabled = false }
-	jar { enabled = false }
 }
 
 project(':admin') {
