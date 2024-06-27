@@ -16,9 +16,10 @@ import java.nio.file.Paths;
 @AllArgsConstructor
 public class BulletinService {
     private final BulletinRepository bulletinRepository;
-    private final String PREFIX_PATH = "/home/youngseok/upload/bulletin";
+    private final String PREFIX_PATH = "/volume1/youngseok/upload/bulletin";
 
     public void save(String username, String date, MultipartFile image1, MultipartFile image2) {
+        date = date.replaceAll("\"", "");
         String fileName1 = date + "_1.jpeg";
         String fileName2 = date + "_2.jpeg";
         fileSave(PREFIX_PATH, fileName1, image1);

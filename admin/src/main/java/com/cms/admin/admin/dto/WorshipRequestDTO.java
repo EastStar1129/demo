@@ -20,7 +20,7 @@ public class WorshipRequestDTO {
                 .content(worshipRequestDTO.getContent())
                 .verses(worshipRequestDTO.getVerses())
                 .audioPath(worshipRequestDTO.getAudioPath())
-                .date(worshipRequestDTO.getDate())
+                .date(worshipRequestDTO.getDate().replaceAll("\"", ""))
                 .part(worshipRequestDTO.getPart())
                 .build();
     }
