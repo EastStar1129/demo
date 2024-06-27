@@ -5,12 +5,12 @@ services:
     image: admin:latest
     container_name: admin
     environment:
-      SPRING_PROFILES_ACTIVE: production
-      DB_IP: ${DB_IP}
-      DB_NAME: ${DB_NAME}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      USER: youngseok
+      - SPRING_PROFILES_ACTIVE=production
+      - DB_IP=${DB_IP}
+      - DB_NAME=${DB_NAME}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - USER=youngseok
     ports:
       - "8080:8080"
     volumes:
@@ -20,12 +20,12 @@ services:
     image: client:latest
     container_name: client
     environment:
-      SPRING_PROFILES_ACTIVE: production
-      DB_IP: ${DB_IP}
-      DB_NAME: ${DB_NAME}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      USER: youngseok
+      - SPRING_PROFILES_ACTIVE=production
+      - DB_IP=${DB_IP}
+      - DB_NAME=${DB_NAME}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - USER=youngseok
     ports:
       - "8081:8081"
     volumes:
