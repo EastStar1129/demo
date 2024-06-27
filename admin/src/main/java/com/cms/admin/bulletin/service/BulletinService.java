@@ -24,6 +24,9 @@ public class BulletinService {
         String fileName2 = date + "_2.jpeg";
         fileSave(PREFIX_PATH, fileName1, image1);
         fileSave(PREFIX_PATH, fileName2, image2);
+
+        fileName1 = "/images/bulletin/" + fileName1;
+        fileName2 = "/images/bulletin/" + fileName2;
         Bulletin bulletin = Bulletin.of(date, fileName1, fileName2, username);
         bulletinRepository.saveAndFlush(bulletin);
     }
