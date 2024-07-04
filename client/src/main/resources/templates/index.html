@@ -21,10 +21,12 @@
       margin: 1rem;
     }
   </style>
-  <div th:replace="~{fragments/slide :: main}"></div>
-  <div th:replace="~{fragments/worship :: worship}"></div>
-  <div th:replace="~{fragments/list :: order}"></div>
-  <div th:replace="~{fragments/card :: guide}"></div>
+  <div style="margin: 0 1rem;">
+    <div th:replace="~{fragments/slide :: main}"></div>
+    <div th:replace="~{fragments/worship :: worship}"></div>
+    <div th:replace="~{fragments/list :: order}"></div>
+    <div th:replace="~{fragments/card :: guide}"></div>
+  </div>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       fetchWorship();
